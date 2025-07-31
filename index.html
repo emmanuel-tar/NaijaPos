@@ -11,6 +11,395 @@
             box-sizing: border-box;
         }
 
+        /* Login Screen Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .login-header h2 {
+            color: #3498db;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #229954;
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .login-error {
+            color: #e74c3c;
+            margin-top: 15px;
+            padding: 10px;
+            background: #fdf2f2;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .login-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .login-footer p {
+            margin: 5px 0;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            float: right;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 8px 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Configuration Menu Bar Styles */
+        .config-menu-bar {
+            background: #34495e;
+            padding: 0;
+            margin: 0 -10px;
+            display: flex;
+            border-bottom: 2px solid #2c3e50;
+            position: relative;
+        }
+
+        .menu-item {
+            position: relative;
+            cursor: pointer;
+            color: white;
+            padding: 15px 20px;
+            transition: background 0.3s;
+            border-right: 1px solid #2c3e50;
+        }
+
+        .menu-item:hover {
+            background: #2c3e50;
+        }
+
+        .menu-item span {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #34495e;
+            border-radius: 0 0 5px 5px;
+            min-width: 200px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .menu-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .menu-option {
+            padding: 12px 15px;
+            color: #2c3e50;
+            cursor: pointer;
+            border-bottom: 1px solid #ecf0f1;
+            transition: background 0.2s;
+        }
+
+        .menu-option:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .menu-option:last-child {
+            border-bottom: none;
+        }
+
+        /* Configuration Modal Styles */
+        .config-modal .modal-content {
+            position: relative;
+            max-width: none;
+            width: 90%;
+            max-width: 1000px;
+            min-height: 600px;
+            padding: 0;
+        }
+
+        .config-modal-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .config-header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .config-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .config-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .config-close:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+
+        .config-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* Configuration Form Styles */
+        .config-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #2c3e50;
+            padding-top: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .config-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .config-btn.primary {
+            background: #27ae60;
+            color: white;
+        }
+
+        .config-btn.primary:hover {
+            background: #229954;
+        }
+
+        .config-btn.secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .config-btn.secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .config-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .config-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        /* Data Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .data-table th {
+            background: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            font-size: 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .action-btn.edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .action-btn.delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .config-menu-bar {
+                flex-wrap: wrap;
+            }
+            
+            .menu-item {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .form-group {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+
         body {
             font-family: 'Courier New', monospace;
             background-color: #f0f0f0;
@@ -300,9 +689,102 @@
     </style>
 </head>
 <body>
-    <div class="pos-container">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>TSQUARE POS</h1>
+                <h2>Naija Market Ready</h2>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn">LOGIN</button>
+                <div id="loginError" class="login-error"></div>
+            </form>
+            <div class="login-footer">
+                <p>Demo Accounts:</p>
+                <p><strong>Cashier:</strong> user: cashier01 | pass: cash123</p>
+                <p><strong>Manager:</strong> user: manager01 | pass: mgr456</p>
+                <p><strong>Admin:</strong> user: admin | pass: admin789</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POS System (Hidden until login) -->
+    <div id="posSystem" class="pos-container" style="display: none;">
         <div class="main-section">
-            <div class="header">RETAIL POINT OF SALE SYSTEM</div>
+            <div class="header">
+                RETAIL POINT OF SALE SYSTEM
+                <div class="header-controls">
+                    <span>Welcome, <span id="loggedInUser"></span></span>
+                    <button id="logoutBtn" class="logout-btn">LOGOUT</button>
+                </div>
+            </div>
+            
+            <!-- Configuration Menu Bar -->
+            <div id="configMenuBar" class="config-menu-bar">
+                <div class="menu-item" data-menu="inventory">
+                    <span>📦 INVENTORY</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="items">Items</div>
+                        <div class="menu-option" data-config="groups">Groups</div>
+                        <div class="menu-option" data-config="units">Units</div>
+                        <div class="menu-option" data-config="stock">Stock Management</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="pricing">
+                    <span>💰 PRICE & PAYMENT</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="pricing">Price Rate Config</div>
+                        <div class="menu-option" data-config="tax">Tax Configuration</div>
+                        <div class="menu-option" data-config="currency">Currencies</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="printer">
+                    <span>🖨️ PRINTER CONFIG</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="printer-settings">Printer Settings</div>
+                        <div class="menu-option" data-config="invoice-design">Invoice Designs</div>
+                        <div class="menu-option" data-config="print-test">Print Test</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="users">
+                    <span>👤 USER SETTINGS</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="user-accounts">User Accounts</div>
+                        <div class="menu-option" data-config="change-password">Change Password</div>
+                        <div class="menu-option" data-config="access-control">Access Control</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="business">
+                    <span>🏪 BUSINESS INFO</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="store-profile">Store Profile</div>
+                        <div class="menu-option" data-config="location">Location Setup</div>
+                        <div class="menu-option" data-config="logo">Business Logo</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="system">
+                    <span>⚙️ SYSTEM SETTINGS</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="backup">Backup & Restore</div>
+                        <div class="menu-option" data-config="reset">Reset System</div>
+                        <div class="menu-option" data-config="licensing">Licensing</div>
+                    </div>
+                </div>
+            </div>
             
             <div class="content-area">
                 <div class="departments">
@@ -379,6 +861,20 @@
             <button class="side-btn info" onclick="voidLastItem()">VOID LAST ITEM</button>
         </div>
     </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div id="configModal" class="modal config-modal">
+        <div class="config-modal-content">
+            <div class="config-header">
+                <h3 id="configTitle">Configuration</h3>
+                <button class="config-close" onclick="closeConfigModal()">&times;</button>
+            </div>
+            <div id="configContent" class="config-content">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </div>
+    </div>
 
     <div class="status-bar">
         <span>Cashier: <span id="cashierName">SYSTEM USER</span></span>
@@ -416,6 +912,37 @@
     </div>
 
     <script>
+        // User Authentication System
+        const users = {
+            'cashier01': { 
+                password: 'cash123', 
+                role: 'cashier', 
+                name: 'John Cashier',
+                permissions: ['sale', 'refund', 'hold_recall']
+            },
+            'cashier02': { 
+                password: 'cash456', 
+                role: 'cashier', 
+                name: 'Mary Cashier',
+                permissions: ['sale', 'refund', 'hold_recall']
+            },
+            'manager01': { 
+                password: 'mgr456', 
+                role: 'manager', 
+                name: 'James Manager',
+                permissions: ['sale', 'refund', 'hold_recall', 'discount', 'void', 'reports']
+            },
+            'admin': { 
+                password: 'admin789', 
+                role: 'admin', 
+                name: 'System Admin',
+                permissions: ['all']
+            }
+        };
+
+        let currentUser = null;
+        let sessionActive = false;
+
         // POS System State
         let currentSale = {
             items: [],
@@ -427,6 +954,18 @@
 
         let heldOrders = [];
         let lastTransaction = null;
+
+        // Configuration System
+        let configData = {
+            items: [],
+            groups: [],
+            units: [],
+            taxRates: [],
+            printers: [],
+            users: [],
+            storeProfile: {},
+            systemSettings: {}
+        };
 
         // Sample product database
         const productDatabase = {
@@ -464,6 +1003,149 @@
 
         // Initialize system
         document.addEventListener('DOMContentLoaded', function() {
+            initializeLogin();
+            
+            // Check if user is already logged in (session persistence)
+            const savedUser = sessionStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showPOSSystem();
+            } else {
+                showLoginScreen();
+            }
+        });
+
+        // Login System Functions
+        function initializeLogin() {
+            const loginForm = document.getElementById('loginForm');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            loginForm.addEventListener('submit', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Focus username field
+            document.getElementById('username').focus();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            // Clear previous errors
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            
+            // Validate credentials
+            if (users[username] && users[username].password === password) {
+                // Successful login
+                currentUser = {
+                    username: username,
+                    name: users[username].name,
+                    role: users[username].role,
+                    permissions: users[username].permissions
+                };
+                
+                // Save session
+                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                sessionActive = true;
+                
+                // Show POS system
+                showPOSSystem();
+                
+                // Log successful login
+                console.log('Login successful:', currentUser.name, 'Role:', currentUser.role);
+                
+            } else {
+                // Failed login
+                showLoginError('Invalid username or password');
+                
+                // Clear password field
+                document.getElementById('password').value = '';
+                document.getElementById('username').focus();
+                
+                // Log failed attempt
+                console.log('Login failed for username:', username);
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear session
+                currentUser = null;
+                sessionActive = false;
+                sessionStorage.removeItem('currentUser');
+                
+                // Clear any active sale
+                if (currentSale.items.length > 0) {
+                    if (confirm('There is an active sale. Hold this order before logout?')) {
+                        holdOrder();
+                    } else {
+                        currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
+                    }
+                }
+                
+                // Show login screen
+                showLoginScreen();
+                
+                console.log('User logged out');
+            }
+        }
+
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('posSystem').style.display = 'none';
+            document.querySelector('.status-bar').style.display = 'none';
+            
+            // Clear login form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').style.display = 'none';
+            
+            // Focus username field
+            setTimeout(() => {
+                document.getElementById('username').focus();
+            }, 100);
+        }
+
+        function showPOSSystem() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('posSystem').style.display = 'grid';
+            document.querySelector('.status-bar').style.display = 'flex';
+            
+            // Update user info in header
+            document.getElementById('loggedInUser').textContent = currentUser.name;
+            
+            // Initialize POS functions
+            initializePOS();
+            
+            // Initialize configuration menu
+            initializeConfigMenu();
+            
+            // Update status bar with user info
+            updateStatusBar('Welcome, ' + currentUser.name + ' (' + currentUser.role.toUpperCase() + ')');
+        }
+
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // Auto-hide error after 5 seconds
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function hasPermission(action) {
+            if (!currentUser) return false;
+            if (currentUser.permissions.includes('all')) return true;
+            return currentUser.permissions.includes(action);
+        }
+
+        function initializePOS() {
             updateDateTime();
             setInterval(updateDateTime, 1000);
             
@@ -476,7 +1158,382 @@
                     addItemByBarcode();
                 }
             });
-        });
+            
+            // Update cashier name in status bar
+            document.getElementById('cashierName').textContent = currentUser.name;
+        }
+
+        // Configuration Menu System
+        function initializeConfigMenu() {
+            // Add click handlers for menu options
+            document.querySelectorAll('.menu-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const configType = this.dataset.config;
+                    openConfigModal(configType);
+                });
+            });
+
+            // Hide menu bar for non-admin users in basic version
+            const menuBar = document.getElementById('configMenuBar');
+            if (currentUser.role !== 'admin' && currentUser.role !== 'manager') {
+                menuBar.style.display = 'none';
+            } else {
+                menuBar.style.display = 'flex';
+            }
+        }
+
+        function openConfigModal(configType) {
+            if (!hasPermission('all') && currentUser.role !== 'manager') {
+                alert('Access denied: Administrative privileges required');
+                return;
+            }
+
+            const modal = document.getElementById('configModal');
+            const title = document.getElementById('configTitle');
+            const content = document.getElementById('configContent');
+
+            // Set title and load content based on config type
+            const configInfo = getConfigInfo(configType);
+            title.textContent = configInfo.title;
+            content.innerHTML = configInfo.content;
+
+            // Show modal
+            modal.style.display = 'block';
+
+            // Initialize specific config functionality
+            initializeConfigModule(configType);
+        }
+
+        function getConfigInfo(configType) {
+            const configs = {
+                'items': {
+                    title: 'Item Management',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-actions" style="margin-top: 0; padding-top: 0; border-top: none;">
+                                <button class="config-btn primary" onclick="addNewItem()">Add New Item</button>
+                                <button class="config-btn secondary" onclick="importItems()">Import Items</button>
+                            </div>
+                            <table class="data-table" id="itemsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Barcode</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Department</th>
+                                        <th>Taxable</th>
+                                        <th>EBT</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemsTableBody">
+                                    <!-- Items will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    `
+                },
+                'groups': {
+                    title: 'Product Groups',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label>Group Name:</label>
+                                <input type="text" id="groupName" placeholder="Enter group name">
+                            </div>
+                            <div class="form-group">
+                                <label>Description:</label>
+                                <textarea id="groupDescription" rows="3" placeholder="Group description"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button class="config-btn primary" onclick="saveGroup()">Save Group</button>
+                                <button class="config-btn secondary" onclick="clearGroupForm()">Clear</button>
+                            </div>
+                            <table class="data-table" id="groupsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <th>Description</th>
+                                        <th>Items Count</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="groupsTableBody">
+                                    <!-- Groups will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    `
+                },
+                'tax': {
+                    title: 'Tax Configuration',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label>Tax Name:</label>
+                                <input type="text" id="taxName" placeholder="e.g., Sales Tax, VAT">
+                            </div>
+                            <div class="form-group">
+                                <label>Tax Rate (%):</label>
+                                <input type="number" id="taxRate" step="0.01" placeholder="8.25">
+                            </div>
+                            <div class="form-group">
+                                <label>Apply to:</label>
+                                <select id="taxApplyTo">
+                                    <option value="all">All Items</option>
+                                    <option value="taxable">Taxable Items Only</option>
+                                    <option value="specific">Specific Categories</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button class="config-btn primary" onclick="saveTaxRate()">Save Tax Rate</button>
+                                <button class="config-btn secondary" onclick="clearTaxForm()">Clear</button>
+                            </div>
+                        </div>
+                    `
+                },
+                'user-accounts': {
+                    title: 'User Account Management',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" id="newUsername" placeholder="Enter username">
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name:</label>
+                                <input type="text" id="newUserFullName" placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" id="newUserPassword" placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <label>Role:</label>
+                                <select id="newUserRole">
+                                    <option value="cashier">Cashier</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button class="config-btn primary" onclick="saveUser()">Create User</button>
+                                <button class="config-btn secondary" onclick="clearUserForm()">Clear</button>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Full Name</th>
+                                        <th>Role</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <!-- Users will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    `
+                },
+                'store-profile': {
+                    title: 'Store Profile',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label>Store Name:</label>
+                                <input type="text" id="storeName" placeholder="Your Store Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <textarea id="storeAddress" rows="3" placeholder="Store address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone:</label>
+                                <input type="tel" id="storePhone" placeholder="Store phone number">
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" id="storeEmail" placeholder="Store email">
+                            </div>
+                            <div class="form-group">
+                                <label>Tax ID:</label>
+                                <input type="text" id="storeTaxId" placeholder="Tax identification number">
+                            </div>
+                            <div class="form-actions">
+                                <button class="config-btn primary" onclick="saveStoreProfile()">Save Profile</button>
+                                <button class="config-btn secondary" onclick="loadStoreProfile()">Reload</button>
+                            </div>
+                        </div>
+                    `
+                },
+                'printer-settings': {
+                    title: 'Printer Configuration',
+                    content: `
+                        <div class="config-form">
+                            <div class="form-group">
+                                <label>Printer Name:</label>
+                                <input type="text" id="printerName" placeholder="Receipt Printer">
+                            </div>
+                            <div class="form-group">
+                                <label>Printer Type:</label>
+                                <select id="printerType">
+                                    <option value="thermal">Thermal Printer</option>
+                                    <option value="inkjet">Inkjet Printer</option>
+                                    <option value="laser">Laser Printer</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Paper Width:</label>
+                                <select id="paperWidth">
+                                    <option value="58mm">58mm</option>
+                                    <option value="80mm">80mm</option>
+                                    <option value="A4">A4</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button class="config-btn primary" onclick="savePrinterSettings()">Save Settings</button>
+                                <button class="config-btn secondary" onclick="testPrint()">Test Print</button>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+
+            return configs[configType] || {
+                title: 'Configuration',
+                content: `<div class="config-form"><p>Configuration module for ${configType} is under development.</p></div>`
+            };
+        }
+
+        function initializeConfigModule(configType) {
+            switch(configType) {
+                case 'items':
+                    loadItemsTable();
+                    break;
+                case 'groups':
+                    loadGroupsTable();
+                    break;
+                case 'user-accounts':
+                    loadUsersTable();
+                    break;
+                case 'store-profile':
+                    loadStoreProfile();
+                    break;
+                // Add more cases as needed
+            }
+        }
+
+        // Configuration Module Functions
+        function loadItemsTable() {
+            const tbody = document.getElementById('itemsTableBody');
+            tbody.innerHTML = '';
+
+            // Load from productDatabase
+            Object.keys(productDatabase).forEach(barcode => {
+                const item = productDatabase[barcode];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${barcode}</td>
+                    <td>${item.name}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td>${item.department}</td>
+                    <td>${item.taxable ? 'Yes' : 'No'}</td>
+                    <td>${item.ebtEligible ? 'Yes' : 'No'}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit" onclick="editItem('${barcode}')">Edit</button>
+                        <button class="action-btn delete" onclick="deleteItem('${barcode}')">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function loadUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+
+            Object.keys(users).forEach(username => {
+                const user = users[username];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.role}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit" onclick="editUser('${username}')">Edit</button>
+                        <button class="action-btn delete" onclick="deleteUser('${username}')">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function addNewItem() {
+            alert('Add New Item form - Not implemented yet');
+        }
+
+        function saveUser() {
+            const username = document.getElementById('newUsername').value.trim();
+            const fullName = document.getElementById('newUserFullName').value.trim();
+            const password = document.getElementById('newUserPassword').value;
+            const role = document.getElementById('newUserRole').value;
+
+            if (!username || !fullName || !password) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (users[username]) {
+                alert('Username already exists');
+                return;
+            }
+
+            users[username] = {
+                password: password,
+                role: role,
+                name: fullName,
+                permissions: role === 'admin' ? ['all'] : role === 'manager' ? ['sale', 'refund', 'hold_recall', 'discount', 'void', 'reports'] : ['sale', 'refund', 'hold_recall']
+            };
+
+            alert('User created successfully');
+            clearUserForm();
+            loadUsersTable();
+        }
+
+        function clearUserForm() {
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newUserFullName').value = '';
+            document.getElementById('newUserPassword').value = '';
+            document.getElementById('newUserRole').value = 'cashier';
+        }
+
+        function loadStoreProfile() {
+            // Load store profile data if exists
+            document.getElementById('storeName').value = 'Tsquare POS - Naija Market';
+            document.getElementById('storeAddress').value = 'Lagos, Nigeria';
+            document.getElementById('storePhone').value = '+234-xxx-xxxx';
+            document.getElementById('storeEmail').value = 'store@tsquarepos.com';
+            document.getElementById('storeTaxId').value = 'TAX-12345';
+        }
+
+        function saveStoreProfile() {
+            const profile = {
+                name: document.getElementById('storeName').value,
+                address: document.getElementById('storeAddress').value,
+                phone: document.getElementById('storePhone').value,
+                email: document.getElementById('storeEmail').value,
+                taxId: document.getElementById('storeTaxId').value
+            };
+
+            // Save to local storage or backend
+            localStorage.setItem('storeProfile', JSON.stringify(profile));
+            alert('Store profile saved successfully');
+        }
+
+        function closeConfigModal() {
+            document.getElementById('configModal').style.display = 'none';
+        }
 
         function updateDateTime() {
             const now = new Date();
@@ -756,6 +1813,10 @@
         }
 
         function openAdminPanel() {
+            if (!hasPermission('all')) {
+                alert('Access denied: Admin privileges required');
+                return;
+            }
             updateStatusBar('Admin panel - Not implemented yet');
         }
 
