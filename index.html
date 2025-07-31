@@ -1,19 +1,783 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tsquare POS - Naija Market Ready</title>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail POS System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .pos-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .main-section {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 10px;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .content-area {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+        }
+
+        .departments {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 10px;
+            background: white;
+            border: 2px solid #333;
+        }
+
+        .dept-btn {
+            background: #3498db;
+            color: white;
+            border: 2px solid #2980b9;
+            padding: 20px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .dept-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .dept-btn:active {
+            transform: scale(0.95);
+        }
+
+        .sale-area {
+            background: white;
+            border: 2px solid #333;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sale-header {
+            background: #34495e;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sale-list {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            min-height: 200px;
+        }
+
+        .sale-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 12px;
+        }
+
+        .sale-item:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .sale-totals {
+            margin-top: 10px;
+            background: #ecf0f1;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .total-row.final {
+            font-size: 18px;
+            color: #e74c3c;
+            border-top: 2px solid #333;
+            padding-top: 8px;
+        }
+
+        .barcode-input {
+            background: white;
+            border: 2px solid #333;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #barcodeInput {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            font-family: 'Courier New', monospace;
+        }
+
+        .scan-btn {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .scan-btn:hover {
+            background: #229954;
+        }
+
+        .side-panel {
+            background: white;
+            border: 2px solid #333;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .side-btn {
+            padding: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid #333;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .side-btn.payment {
+            background: #27ae60;
+            color: white;
+        }
+
+        .side-btn.payment:hover {
+            background: #229954;
+        }
+
+        .side-btn.action {
+            background: #f39c12;
+            color: white;
+        }
+
+        .side-btn.action:hover {
+            background: #d68910;
+        }
+
+        .side-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .side-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        .side-btn.info {
+            background: #3498db;
+            color: white;
+        }
+
+        .side-btn.info:hover {
+            background: #2980b9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            min-width: 400px;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .modal-btn.confirm {
+            background: #27ae60;
+            color: white;
+        }
+
+        .modal-btn.cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .status-bar {
+            background: #2c3e50;
+            color: white;
+            padding: 5px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .pos-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr auto;
+            }
+            
+            .side-panel {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="pos-wrapper">
-    <h1>🧾 Tsquare POS System</h1>
-    <div id="cart-container"></div>
-    <div id="receipt-preview"></div>
-    <button onclick="printReceipt()">Print Receipt</button>
-  </div>
-  <script src="cart.js"></script>
-  <script src="receipt.js"></script>
+    <div class="pos-container">
+        <div class="main-section">
+            <div class="header">RETAIL POINT OF SALE SYSTEM</div>
+            
+            <div class="content-area">
+                <div class="departments">
+                    <button class="dept-btn" data-dept="MEAT">MEAT</button>
+                    <button class="dept-btn" data-dept="PRODUCE">PRODUCE</button>
+                    <button class="dept-btn" data-dept="DAIRY">DAIRY</button>
+                    <button class="dept-btn" data-dept="BAKERY">BAKERY</button>
+                    <button class="dept-btn" data-dept="SODA">SODA</button>
+                    <button class="dept-btn" data-dept="BEER">BEER</button>
+                    <button class="dept-btn" data-dept="LIQUOR">LIQUOR</button>
+                    <button class="dept-btn" data-dept="CIGARETTES">CIGARETTES</button>
+                    <button class="dept-btn" data-dept="DELI">DELI</button>
+                    <button class="dept-btn" data-dept="FROZEN">FROZEN</button>
+                    <button class="dept-btn" data-dept="CANDY">CANDY</button>
+                    <button class="dept-btn" data-dept="HEALTH">HEALTH</button>
+                    <button class="dept-btn" data-dept="HOUSEHOLD">HOUSEHOLD</button>
+                    <button class="dept-btn" data-dept="MISC">MISC</button>
+                    <button class="dept-btn" data-dept="COUPONS">COUPONS</button>
+                    <button class="dept-btn" data-dept="OPTIONS">OPTIONS<br>F10</button>
+                </div>
+
+                <div class="sale-area">
+                    <div class="sale-header">SALE ITEMS</div>
+                    <div class="sale-list" id="saleList">
+                        <div class="sale-item" style="background: #34495e; color: white; font-weight: bold;">
+                            <div>DESCRIPTION</div>
+                            <div>QTY</div>
+                            <div>PRICE</div>
+                            <div>TAX</div>
+                        </div>
+                    </div>
+                    <div class="sale-totals">
+                        <div class="total-row">
+                            <span>SUBTOTAL:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>DISCOUNT:</span>
+                            <span id="discount">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>TAX:</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>TOTAL:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="barcode-input">
+                <label for="barcodeInput" style="font-weight: bold;">BARCODE/ITEM:</label>
+                <input type="text" id="barcodeInput" placeholder="Scan barcode or enter item code..." autocomplete="off">
+                <button class="scan-btn" onclick="addItemByBarcode()">ADD ITEM</button>
+            </div>
+        </div>
+
+        <div class="side-panel">
+            <button class="side-btn payment" onclick="processPayment('CASH')">CASH</button>
+            <button class="side-btn payment" onclick="processPayment('CREDIT')">CREDIT</button>
+            <button class="side-btn payment" onclick="processPayment('CHECK')">CHECK</button>
+            <button class="side-btn payment" onclick="processPayment('EBT')">EBT CARD</button>
+            
+            <button class="side-btn action" onclick="refundItem()">REFUND ITEM</button>
+            <button class="side-btn action" onclick="reprintReceipt()">RE-PRINT RECEIPT</button>
+            <button class="side-btn action" onclick="holdOrder()">HOLD ORDER</button>
+            <button class="side-btn action" onclick="recallOrder()">RECALL ORDER</button>
+            
+            <button class="side-btn danger" onclick="cancelOrder()">CANCEL ORDER</button>
+            <button class="side-btn info" onclick="changeOrder()">CHANGE SALES ORDER</button>
+            <button class="side-btn info" onclick="applyDiscount()">APPLY DISCOUNT</button>
+            <button class="side-btn info" onclick="voidLastItem()">VOID LAST ITEM</button>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <span>Cashier: <span id="cashierName">SYSTEM USER</span></span>
+        <span>Terminal: <span id="terminalId">001</span></span>
+        <span>Date: <span id="currentDate"></span></span>
+        <span id="systemStatus">READY</span>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h3>Process Payment</h3>
+            <p>Payment Type: <span id="paymentType"></span></p>
+            <p>Amount Due: <span id="amountDue"></span></p>
+            <div style="margin: 20px 0;">
+                <label>Amount Received:</label>
+                <input type="number" id="amountReceived" step="0.01" style="padding: 5px; margin-left: 10px;">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" onclick="completePayment()">COMPLETE</button>
+                <button class="modal-btn cancel" onclick="closeModal()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Item Selection Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <h3>Select Item</h3>
+            <div id="itemList"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // POS System State
+        let currentSale = {
+            items: [],
+            subtotal: 0,
+            discount: 0,
+            tax: 0,
+            total: 0
+        };
+
+        let heldOrders = [];
+        let lastTransaction = null;
+
+        // Sample product database
+        const productDatabase = {
+            '12345': { name: 'Coca Cola 12oz', price: 1.99, taxable: true, ebtEligible: false, department: 'SODA' },
+            '23456': { name: 'Bananas per lb', price: 0.79, taxable: false, ebtEligible: true, department: 'PRODUCE' },
+            '34567': { name: 'Milk Gallon', price: 3.49, taxable: false, ebtEligible: true, department: 'DAIRY' },
+            '45678': { name: 'Ground Beef per lb', price: 4.99, taxable: false, ebtEligible: true, department: 'MEAT' },
+            '56789': { name: 'Marlboro Red', price: 8.99, taxable: true, ebtEligible: false, department: 'CIGARETTES' },
+            '67890': { name: 'White Bread', price: 2.49, taxable: false, ebtEligible: true, department: 'BAKERY' }
+        };
+
+        // Department items for quick access
+        const departmentItems = {
+            'MEAT': [
+                { name: 'Ground Beef (lb)', price: 4.99, taxable: false, ebtEligible: true },
+                { name: 'Chicken Breast (lb)', price: 5.99, taxable: false, ebtEligible: true },
+                { name: 'Pork Chops (lb)', price: 3.99, taxable: false, ebtEligible: true }
+            ],
+            'PRODUCE': [
+                { name: 'Bananas (lb)', price: 0.79, taxable: false, ebtEligible: true },
+                { name: 'Apples (lb)', price: 1.99, taxable: false, ebtEligible: true },
+                { name: 'Tomatoes (lb)', price: 2.49, taxable: false, ebtEligible: true }
+            ],
+            'DAIRY': [
+                { name: 'Milk Gallon', price: 3.49, taxable: false, ebtEligible: true },
+                { name: 'Eggs Dozen', price: 2.99, taxable: false, ebtEligible: true },
+                { name: 'Cheese Slices', price: 4.49, taxable: false, ebtEligible: true }
+            ],
+            'SODA': [
+                { name: 'Coca Cola 12oz', price: 1.99, taxable: true, ebtEligible: false },
+                { name: 'Pepsi 12oz', price: 1.99, taxable: true, ebtEligible: false },
+                { name: 'Sprite 12oz', price: 1.99, taxable: true, ebtEligible: false }
+            ]
+        };
+
+        // Initialize system
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Auto-focus barcode input
+            document.getElementById('barcodeInput').focus();
+            
+            // Enter key support for barcode input
+            document.getElementById('barcodeInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addItemByBarcode();
+                }
+            });
+        });
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('currentDate').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        }
+
+        function addItemByBarcode() {
+            const barcode = document.getElementById('barcodeInput').value.trim();
+            if (!barcode) return;
+
+            const product = productDatabase[barcode];
+            if (product) {
+                addItemToSale(product);
+                document.getElementById('barcodeInput').value = '';
+                document.getElementById('barcodeInput').focus();
+            } else {
+                alert('Product not found: ' + barcode);
+            }
+        }
+
+        function addItemToSale(product, quantity = 1) {
+            const item = {
+                id: Date.now(),
+                name: product.name,
+                price: product.price,
+                quantity: quantity,
+                taxable: product.taxable,
+                ebtEligible: product.ebtEligible,
+                total: product.price * quantity
+            };
+
+            currentSale.items.push(item);
+            updateSaleDisplay();
+            updateStatusBar('Item added: ' + product.name);
+        }
+
+        function updateSaleDisplay() {
+            const saleList = document.getElementById('saleList');
+            
+            // Keep header and clear items
+            saleList.innerHTML = `
+                <div class="sale-item" style="background: #34495e; color: white; font-weight: bold;">
+                    <div>DESCRIPTION</div>
+                    <div>QTY</div>
+                    <div>PRICE</div>
+                    <div>TAX</div>
+                </div>
+            `;
+
+            currentSale.items.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'sale-item';
+                itemDiv.innerHTML = `
+                    <div>${item.name}</div>
+                    <div><input type="number" class="quantity-input" value="${item.quantity}" 
+                         onchange="updateItemQuantity(${index}, this.value)" min="1"></div>
+                    <div>$${item.total.toFixed(2)}</div>
+                    <div>${item.taxable ? 'T' : ''}</div>
+                `;
+                itemDiv.onclick = () => selectItem(index);
+                saleList.appendChild(itemDiv);
+            });
+
+            calculateTotals();
+        }
+
+        function updateItemQuantity(index, newQuantity) {
+            const qty = parseInt(newQuantity) || 1;
+            currentSale.items[index].quantity = qty;
+            currentSale.items[index].total = currentSale.items[index].price * qty;
+            updateSaleDisplay();
+        }
+
+        function calculateTotals() {
+            currentSale.subtotal = currentSale.items.reduce((sum, item) => sum + item.total, 0);
+            currentSale.tax = currentSale.items
+                .filter(item => item.taxable)
+                .reduce((sum, item) => sum + (item.total * 0.08), 0); // 8% tax rate
+            currentSale.total = currentSale.subtotal + currentSale.tax - currentSale.discount;
+
+            document.getElementById('subtotal').textContent = '$' + currentSale.subtotal.toFixed(2);
+            document.getElementById('discount').textContent = '$' + currentSale.discount.toFixed(2);
+            document.getElementById('tax').textContent = '$' + currentSale.tax.toFixed(2);
+            document.getElementById('total').textContent = '$' + currentSale.total.toFixed(2);
+        }
+
+        // Department button handlers
+        document.querySelectorAll('.dept-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const dept = this.dataset.dept;
+                
+                if (dept === 'OPTIONS') {
+                    openAdminPanel();
+                } else if (departmentItems[dept]) {
+                    showDepartmentItems(dept);
+                } else {
+                    updateStatusBar('Department: ' + dept + ' - Not implemented yet');
+                }
+            });
+        });
+
+        function showDepartmentItems(department) {
+            const items = departmentItems[department];
+            const itemList = document.getElementById('itemList');
+            
+            itemList.innerHTML = '<h4>' + department + ' ITEMS</h4>';
+            
+            items.forEach(item => {
+                const itemBtn = document.createElement('button');
+                itemBtn.className = 'dept-btn';
+                itemBtn.style.width = '100%';
+                itemBtn.style.margin = '5px 0';
+                itemBtn.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                itemBtn.onclick = () => {
+                    addItemToSale(item);
+                    closeModal();
+                };
+                itemList.appendChild(itemBtn);
+            });
+
+            document.getElementById('itemModal').style.display = 'block';
+        }
+
+        function processPayment(type) {
+            if (currentSale.items.length === 0) {
+                alert('No items in sale');
+                return;
+            }
+
+            document.getElementById('paymentType').textContent = type;
+            document.getElementById('amountDue').textContent = '$' + currentSale.total.toFixed(2);
+            document.getElementById('amountReceived').value = currentSale.total.toFixed(2);
+            document.getElementById('paymentModal').style.display = 'block';
+        }
+
+        function completePayment() {
+            const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
+            const paymentType = document.getElementById('paymentType').textContent;
+            
+            if (amountReceived < currentSale.total) {
+                alert('Insufficient payment amount');
+                return;
+            }
+
+            const change = amountReceived - currentSale.total;
+            
+            // Store transaction
+            lastTransaction = {
+                items: [...currentSale.items],
+                subtotal: currentSale.subtotal,
+                tax: currentSale.tax,
+                total: currentSale.total,
+                paymentType: paymentType,
+                amountReceived: amountReceived,
+                change: change,
+                timestamp: new Date()
+            };
+
+            if (change > 0) {
+                alert(`Payment complete. Change due: $${change.toFixed(2)}`);
+            } else {
+                alert('Payment complete. Thank you!');
+            }
+
+            // Clear sale
+            currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
+            updateSaleDisplay();
+            closeModal();
+            updateStatusBar('Transaction completed');
+            
+            // Print receipt (simulated)
+            printReceipt(lastTransaction);
+        }
+
+        function printReceipt(transaction) {
+            console.log('=== RECEIPT ===');
+            console.log('Date:', transaction.timestamp.toLocaleString());
+            console.log('Items:');
+            transaction.items.forEach(item => {
+                console.log(`${item.name} x${item.quantity} - $${item.total.toFixed(2)}`);
+            });
+            console.log('Subtotal:', '$' + transaction.subtotal.toFixed(2));
+            console.log('Tax:', '$' + transaction.tax.toFixed(2));
+            console.log('Total:', '$' + transaction.total.toFixed(2));
+            console.log('Payment:', transaction.paymentType);
+            console.log('Amount Received:', '$' + transaction.amountReceived.toFixed(2));
+            console.log('Change:', '$' + transaction.change.toFixed(2));
+            console.log('===============');
+        }
+
+        function cancelOrder() {
+            if (currentSale.items.length === 0) {
+                alert('No active sale to cancel');
+                return;
+            }
+            
+            if (confirm('Cancel current order? This cannot be undone.')) {
+                currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
+                updateSaleDisplay();
+                updateStatusBar('Order cancelled');
+            }
+        }
+
+        function holdOrder() {
+            if (currentSale.items.length === 0) {
+                alert('No items to hold');
+                return;
+            }
+            
+            heldOrders.push({
+                id: Date.now(),
+                sale: { ...currentSale, items: [...currentSale.items] },
+                timestamp: new Date()
+            });
+            
+            currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
+            updateSaleDisplay();
+            updateStatusBar('Order held');
+        }
+
+        function recallOrder() {
+            if (heldOrders.length === 0) {
+                alert('No held orders');
+                return;
+            }
+            
+            const orderList = heldOrders.map((order, index) => 
+                `${index + 1}: ${order.timestamp.toLocaleTimeString()} - $${order.sale.total.toFixed(2)}`
+            ).join('\n');
+            
+            const selection = prompt('Select order to recall:\n' + orderList);
+            const orderIndex = parseInt(selection) - 1;
+            
+            if (orderIndex >= 0 && orderIndex < heldOrders.length) {
+                currentSale = heldOrders[orderIndex].sale;
+                heldOrders.splice(orderIndex, 1);
+                updateSaleDisplay();
+                updateStatusBar('Order recalled');
+            }
+        }
+
+        function voidLastItem() {
+            if (currentSale.items.length === 0) {
+                alert('No items to void');
+                return;
+            }
+            
+            const lastItem = currentSale.items.pop();
+            updateSaleDisplay();
+            updateStatusBar('Voided: ' + lastItem.name);
+        }
+
+        function applyDiscount() {
+            const discountAmount = prompt('Enter discount amount ($):');
+            if (discountAmount && !isNaN(discountAmount)) {
+                currentSale.discount = parseFloat(discountAmount);
+                calculateTotals();
+                updateStatusBar('Discount applied: $' + discountAmount);
+            }
+        }
+
+        function refundItem() {
+            updateStatusBar('Refund function - Not implemented yet');
+        }
+
+        function reprintReceipt() {
+            if (lastTransaction) {
+                printReceipt(lastTransaction);
+                updateStatusBar('Receipt reprinted');
+            } else {
+                alert('No previous transaction to reprint');
+            }
+        }
+
+        function changeOrder() {
+            updateStatusBar('Change order function - Not implemented yet');
+        }
+
+        function openAdminPanel() {
+            updateStatusBar('Admin panel - Not implemented yet');
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        function updateStatusBar(message) {
+            document.getElementById('systemStatus').textContent = message;
+            setTimeout(() => {
+                document.getElementById('systemStatus').textContent = 'READY';
+            }, 3000);
+        }
+
+        // Click outside modal to close
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
