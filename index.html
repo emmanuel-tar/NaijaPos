@@ -819,7 +819,7 @@
                     <div class="sale-totals">
                         <div class="total-row">
                             <span>SUBTOTAL:</span>
-                            <span id="subtotal">$0.00</span>
+                            <span id="subtotal">=N=0.00</span>
                         </div>
                         <div class="total-row">
                             <span>DISCOUNT:</span>
@@ -827,11 +827,11 @@
                         </div>
                         <div class="total-row">
                             <span>TAX:</span>
-                            <span id="tax">$0.00</span>
+                            <span id="tax">=N=0.00</span>
                         </div>
                         <div class="total-row final">
                             <span>TOTAL:</span>
-                            <span id="total">$0.00</span>
+                            <span id="total">=N=0.00</span>
                         </div>
                     </div>
                 </div>
@@ -1590,7 +1590,7 @@
                     <div>${item.name}</div>
                     <div><input type="number" class="quantity-input" value="${item.quantity}" 
                          onchange="updateItemQuantity(${index}, this.value)" min="1"></div>
-                    <div>$${item.total.toFixed(2)}</div>
+                    <div>=N=${item.total.toFixed(2)}</div>
                     <div>${item.taxable ? 'T' : ''}</div>
                 `;
                 itemDiv.onclick = () => selectItem(index);
@@ -1614,10 +1614,10 @@
                 .reduce((sum, item) => sum + (item.total * 0.08), 0); // 8% tax rate
             currentSale.total = currentSale.subtotal + currentSale.tax - currentSale.discount;
 
-            document.getElementById('subtotal').textContent = '$' + currentSale.subtotal.toFixed(2);
-            document.getElementById('discount').textContent = '$' + currentSale.discount.toFixed(2);
-            document.getElementById('tax').textContent = '$' + currentSale.tax.toFixed(2);
-            document.getElementById('total').textContent = '$' + currentSale.total.toFixed(2);
+            document.getElementById('subtotal').textContent = '=N=' + currentSale.subtotal.toFixed(2);
+            document.getElementById('discount').textContent = '=N=' + currentSale.discount.toFixed(2);
+            document.getElementById('tax').textContent = '=N=' + currentSale.tax.toFixed(2);
+            document.getElementById('total').textContent = '=N=' + currentSale.total.toFixed(2);
         }
 
         // Department button handlers
@@ -1646,7 +1646,7 @@
                 itemBtn.className = 'dept-btn';
                 itemBtn.style.width = '100%';
                 itemBtn.style.margin = '5px 0';
-                itemBtn.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                itemBtn.textContent = `${item.name} - =N=${item.price.toFixed(2)}`;
                 itemBtn.onclick = () => {
                     addItemToSale(item);
                     closeModal();
@@ -1664,7 +1664,7 @@
             }
 
             document.getElementById('paymentType').textContent = type;
-            document.getElementById('amountDue').textContent = '$' + currentSale.total.toFixed(2);
+            document.getElementById('amountDue').textContent = '=N=' + currentSale.total.toFixed(2);
             document.getElementById('amountReceived').value = currentSale.total.toFixed(2);
             document.getElementById('paymentModal').style.display = 'block';
         }
@@ -1693,7 +1693,7 @@
             };
 
             if (change > 0) {
-                alert(`Payment complete. Change due: $${change.toFixed(2)}`);
+                alert(`Payment complete. Change due: =N=${change.toFixed(2)}`);
             } else {
                 alert('Payment complete. Thank you!');
             }
@@ -1713,14 +1713,14 @@
             console.log('Date:', transaction.timestamp.toLocaleString());
             console.log('Items:');
             transaction.items.forEach(item => {
-                console.log(`${item.name} x${item.quantity} - $${item.total.toFixed(2)}`);
+                console.log(`${item.name} x${item.quantity} - =N=${item.total.toFixed(2)}`);
             });
-            console.log('Subtotal:', '$' + transaction.subtotal.toFixed(2));
-            console.log('Tax:', '$' + transaction.tax.toFixed(2));
-            console.log('Total:', '$' + transaction.total.toFixed(2));
+            console.log('Subtotal:', '=N= + transaction.subtotal.toFixed(2));
+            console.log('Tax:', =N=' + transaction.tax.toFixed(2));
+            console.log('Total:', '=N= + transaction.total.toFixed(2));
             console.log('Payment:', transaction.paymentType);
-            console.log('Amount Received:', '$' + transaction.amountReceived.toFixed(2));
-            console.log('Change:', '$' + transaction.change.toFixed(2));
+            console.log('Amount Received:', '=N= + transaction.amountReceived.toFixed(2));
+            console.log('Change:', '=N= + transaction.change.toFixed(2));
             console.log('===============');
         }
 
@@ -1761,7 +1761,7 @@
             }
             
             const orderList = heldOrders.map((order, index) => 
-                `${index + 1}: ${order.timestamp.toLocaleTimeString()} - $${order.sale.total.toFixed(2)}`
+                `${index + 1}: ${order.timestamp.toLocaleTimeString()} - =N=${order.sale.total.toFixed(2)}`
             ).join('\n');
             
             const selection = prompt('Select order to recall:\n' + orderList);
@@ -1787,11 +1787,11 @@
         }
 
         function applyDiscount() {
-            const discountAmount = prompt('Enter discount amount ($):');
+            const discountAmount = prompt('Enter discount amount (=N=):');
             if (discountAmount && !isNaN(discountAmount)) {
                 currentSale.discount = parseFloat(discountAmount);
                 calculateTotals();
-                updateStatusBar('Discount applied: $' + discountAmount);
+                updateStatusBar('Discount applied: =N=' + discountAmount);
             }
         }
 
