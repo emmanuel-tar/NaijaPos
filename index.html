@@ -3,716 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retail POS System</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Login Screen Styles */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-        }
-
-        .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .login-header h1 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .login-header h2 {
-            color: #3498db;
-            font-size: 16px;
-            margin-bottom: 30px;
-            font-weight: normal;
-        }
-
-        .login-form {
-            text-align: left;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #bdc3c7;
-            border-radius: 5px;
-            font-size: 16px;
-            font-family: 'Courier New', monospace;
-            transition: border-color 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 15px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-
-        .login-btn:hover {
-            background: #229954;
-        }
-
-        .login-btn:active {
-            transform: scale(0.98);
-        }
-
-        .login-error {
-            color: #e74c3c;
-            margin-top: 15px;
-            padding: 10px;
-            background: #fdf2f2;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .login-footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-
-        .login-footer p {
-            margin: 5px 0;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            float: right;
-            font-size: 14px;
-        }
-
-        .logout-btn {
-            padding: 8px 15px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: #c0392b;
-        }
-
-        /* Configuration Menu Bar Styles */
-        .config-menu-bar {
-            background: #34495e;
-            padding: 0;
-            margin: 0 -10px;
-            display: flex;
-            border-bottom: 2px solid #2c3e50;
-            position: relative;
-        }
-
-        .menu-item {
-            position: relative;
-            cursor: pointer;
-            color: white;
-            padding: 15px 20px;
-            transition: background 0.3s;
-            border-right: 1px solid #2c3e50;
-        }
-
-        .menu-item:hover {
-            background: #2c3e50;
-        }
-
-        .menu-item span {
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border: 2px solid #34495e;
-            border-radius: 0 0 5px 5px;
-            min-width: 200px;
-            z-index: 1000;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .menu-item:hover .dropdown-menu {
-            display: block;
-        }
-
-        .menu-option {
-            padding: 12px 15px;
-            color: #2c3e50;
-            cursor: pointer;
-            border-bottom: 1px solid #ecf0f1;
-            transition: background 0.2s;
-        }
-
-        .menu-option:hover {
-            background: #3498db;
-            color: white;
-        }
-
-        .menu-option:last-child {
-            border-bottom: none;
-        }
-
-        /* Configuration Modal Styles */
-        .config-modal .modal-content {
-            position: relative;
-            max-width: none;
-            width: 90%;
-            max-width: 1000px;
-            min-height: 600px;
-            padding: 0;
-        }
-
-        .config-modal-content {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .config-header {
-            background: #34495e;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .config-header h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .config-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .config-close:hover {
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
-        }
-
-        .config-content {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
-
-        /* Configuration Form Styles */
-        .config-form {
-            display: grid;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 15px;
-            align-items: start;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            color: #2c3e50;
-            padding-top: 8px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
-        }
-
-        .config-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .config-btn.primary {
-            background: #27ae60;
-            color: white;
-        }
-
-        .config-btn.primary:hover {
-            background: #229954;
-        }
-
-        .config-btn.secondary {
-            background: #95a5a6;
-            color: white;
-        }
-
-        .config-btn.secondary:hover {
-            background: #7f8c8d;
-        }
-
-        .config-btn.danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .config-btn.danger:hover {
-            background: #c0392b;
-        }
-
-        /* Data Table Styles */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ecf0f1;
-        }
-
-        .data-table th {
-            background: #34495e;
-            color: white;
-            font-weight: bold;
-        }
-
-        .data-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .action-btn {
-            padding: 5px 10px;
-            font-size: 12px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .action-btn.edit {
-            background: #3498db;
-            color: white;
-        }
-
-        .action-btn.delete {
-            background: #e74c3c;
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .config-menu-bar {
-                flex-wrap: wrap;
-            }
-            
-            .menu-item {
-                padding: 10px 15px;
-                font-size: 12px;
-            }
-            
-            .form-group {
-                grid-template-columns: 1fr;
-                gap: 5px;
-            }
-        }
-
-        body {
-            font-family: 'Courier New', monospace;
-            background-color: #f0f0f0;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .pos-container {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            height: 100vh;
-            gap: 10px;
-            padding: 10px;
-        }
-
-        .main-section {
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-            gap: 10px;
-        }
-
-        .header {
-            background: #2c3e50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .content-area {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 10px;
-        }
-
-        .departments {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            padding: 10px;
-            background: white;
-            border: 2px solid #333;
-        }
-
-        .dept-btn {
-            background: #3498db;
-            color: white;
-            border: 2px solid #2980b9;
-            padding: 20px 10px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .dept-btn:hover {
-            background: #2980b9;
-            transform: scale(1.05);
-        }
-
-        .dept-btn:active {
-            transform: scale(0.95);
-        }
-
-        .sale-area {
-            background: white;
-            border: 2px solid #333;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sale-header {
-            background: #34495e;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .sale-list {
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            min-height: 200px;
-        }
-
-        .sale-item {
-            display: grid;
-            grid-template-columns: 3fr 1fr 1fr 1fr;
-            gap: 10px;
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-            font-size: 12px;
-        }
-
-        .sale-item:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        .sale-totals {
-            margin-top: 10px;
-            background: #ecf0f1;
-            padding: 15px;
-            border: 2px solid #bdc3c7;
-        }
-
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .total-row.final {
-            font-size: 18px;
-            color: #e74c3c;
-            border-top: 2px solid #333;
-            padding-top: 8px;
-        }
-
-        .barcode-input {
-            background: white;
-            border: 2px solid #333;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        #barcodeInput {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            font-family: 'Courier New', monospace;
-        }
-
-        .scan-btn {
-            padding: 10px 20px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .scan-btn:hover {
-            background: #229954;
-        }
-
-        .side-panel {
-            background: white;
-            border: 2px solid #333;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .side-btn {
-            padding: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            border: 2px solid #333;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .side-btn.payment {
-            background: #27ae60;
-            color: white;
-        }
-
-        .side-btn.payment:hover {
-            background: #229954;
-        }
-
-        .side-btn.action {
-            background: #f39c12;
-            color: white;
-        }
-
-        .side-btn.action:hover {
-            background: #d68910;
-        }
-
-        .side-btn.danger {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .side-btn.danger:hover {
-            background: #c0392b;
-        }
-
-        .side-btn.info {
-            background: #3498db;
-            color: white;
-        }
-
-        .side-btn.info:hover {
-            background: #2980b9;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            min-width: 400px;
-            text-align: center;
-        }
-
-        .modal-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .modal-btn {
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-
-        .modal-btn.confirm {
-            background: #27ae60;
-            color: white;
-        }
-
-        .modal-btn.cancel {
-            background: #95a5a6;
-            color: white;
-        }
-
-        .quantity-input {
-            width: 60px;
-            text-align: center;
-            border: 1px solid #ccc;
-            padding: 2px;
-        }
-
-        .status-bar {
-            background: #2c3e50;
-            color: white;
-            padding: 5px 15px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-        }
-
-        @media (max-width: 1024px) {
-            .pos-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr auto;
-            }
-            
-            .side-panel {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-            }
-        }
-    </style>
+    <title>NaijaPos - Retail POS System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzM0OThkYiIgZD0iTTQgNGgyMHYyMEg0VjR6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDZoOHYyaC04VjZ6TTggOGg0djJIOFY4ek04IDEyaDEydjJIOHYtMnpNOCAxNmgxMnYySDh2LTJ6Ii8+PC9zdmc+">
+    <meta name="description" content="NaijaPos - A modern point of sale system for Nigerian retail businesses">
 </head>
 <body>
     <!-- Login Screen -->
     <div id="loginScreen" class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h1>TSQUARE POS</h1>
-                <h2>Naija Market Ready</h2>
+                <div class="logo-container">
+                    <svg class="logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="#3498db" x="2" y="2" width="20" height="20" rx="2"/>
+                        <path fill="#fff" d="M6 7h12v2H6V7zM6 11h12v2H6v-2zM6 15h8v2H6v-2z"/>
+                    </svg>
+                </div>
+                <h1>NAIJAPOS</h1>
+                <h2>Modern Nigerian Retail Solution</h2>
             </div>
             <form id="loginForm" class="login-form">
                 <div class="input-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required autocomplete="username">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username" placeholder="Enter your username">
                 </div>
                 <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
                 </div>
-                <button type="submit" class="login-btn">LOGIN</button>
+                <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
                 <div id="loginError" class="login-error"></div>
             </form>
             <div class="login-footer">
-                <p>Demo Accounts:</p>
-                <p><strong>Cashier:</strong> user: cashier01 | pass: cash123</p>
-                <p><strong>Manager:</strong> user: manager01 | pass: mgr456</p>
-                <p><strong>Admin:</strong> user: admin | pass: admin789</p>
+                <p><i class="fas fa-info-circle"></i> Demo Accounts:</p>
+                <div class="demo-accounts">
+                    <div class="demo-account">
+                        <i class="fas fa-user-tag"></i>
+                        <div>
+                            <strong>Cashier</strong><br>
+                            user: cashier01<br>
+                            pass: cash123
+                        </div>
+                    </div>
+                    <div class="demo-account">
+                        <i class="fas fa-user-tie"></i>
+                        <div>
+                            <strong>Manager</strong><br>
+                            user: manager01<br>
+                            pass: mgr456
+                        </div>
+                    </div>
+                    <div class="demo-account">
+                        <i class="fas fa-user-shield"></i>
+                        <div>
+                            <strong>Admin</strong><br>
+                            user: admin<br>
+                            pass: admin789
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -721,144 +71,199 @@
     <div id="posSystem" class="pos-container" style="display: none;">
         <div class="main-section">
             <div class="header">
-                RETAIL POINT OF SALE SYSTEM
+                <div class="header-logo">
+                    <svg class="header-logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="#fff" x="2" y="2" width="20" height="20" rx="2"/>
+                        <path fill="#3498db" d="M6 7h12v2H6V7zM6 11h12v2H6v-2zM6 15h8v2H6v-2z"/>
+                    </svg>
+                    <span>NAIJAPOS</span>
+                </div>
                 <div class="header-controls">
-                    <span>Welcome, <span id="loggedInUser"></span></span>
-                    <button id="logoutBtn" class="logout-btn">LOGOUT</button>
+                    <div class="user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Welcome, <span id="loggedInUser"></span></span>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
                 </div>
             </div>
             
             <!-- Configuration Menu Bar -->
             <div id="configMenuBar" class="config-menu-bar">
                 <div class="menu-item" data-menu="inventory">
-                    <span>📦 INVENTORY</span>
+                    <span><i class="fas fa-box"></i> INVENTORY</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="items">Items</div>
-                        <div class="menu-option" data-config="groups">Groups</div>
-                        <div class="menu-option" data-config="units">Units</div>
-                        <div class="menu-option" data-config="stock">Stock Management</div>
+                        <div class="menu-option" data-config="items"><i class="fas fa-tags"></i> Items</div>
+                        <div class="menu-option" data-config="groups"><i class="fas fa-layer-group"></i> Groups</div>
+                        <div class="menu-option" data-config="units"><i class="fas fa-ruler"></i> Units</div>
+                        <div class="menu-option" data-config="stock"><i class="fas fa-warehouse"></i> Stock Management</div>
                     </div>
                 </div>
                 
                 <div class="menu-item" data-menu="pricing">
-                    <span>💰 PRICE & PAYMENT</span>
+                    <span><i class="fas fa-money-bill-wave"></i> PRICE & PAYMENT</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="pricing">Price Rate Config</div>
-                        <div class="menu-option" data-config="tax">Tax Configuration</div>
-                        <div class="menu-option" data-config="currency">Currencies</div>
+                        <div class="menu-option" data-config="pricing"><i class="fas fa-tag"></i> Price Rate Config</div>
+                        <div class="menu-option" data-config="tax"><i class="fas fa-percent"></i> Tax Configuration</div>
+                        <div class="menu-option" data-config="currency"><i class="fas fa-coins"></i> Currencies</div>
                     </div>
                 </div>
                 
                 <div class="menu-item" data-menu="printer">
-                    <span>🖨️ PRINTER CONFIG</span>
+                    <span><i class="fas fa-print"></i> PRINTER CONFIG</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="printer-settings">Printer Settings</div>
-                        <div class="menu-option" data-config="invoice-design">Invoice Designs</div>
-                        <div class="menu-option" data-config="print-test">Print Test</div>
+                        <div class="menu-option" data-config="printer-settings"><i class="fas fa-cog"></i> Printer Settings</div>
+                        <div class="menu-option" data-config="invoice-design"><i class="fas fa-file-invoice"></i> Invoice Designs</div>
+                        <div class="menu-option" data-config="print-test"><i class="fas fa-vial"></i> Print Test</div>
                     </div>
                 </div>
                 
                 <div class="menu-item" data-menu="users">
-                    <span>👤 USER SETTINGS</span>
+                    <span><i class="fas fa-users"></i> USER SETTINGS</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="user-accounts">User Accounts</div>
-                        <div class="menu-option" data-config="change-password">Change Password</div>
-                        <div class="menu-option" data-config="access-control">Access Control</div>
+                        <div class="menu-option" data-config="user-accounts"><i class="fas fa-user-cog"></i> User Accounts</div>
+                        <div class="menu-option" data-config="change-password"><i class="fas fa-key"></i> Change Password</div>
+                        <div class="menu-option" data-config="access-control"><i class="fas fa-user-lock"></i> Access Control</div>
                     </div>
                 </div>
                 
                 <div class="menu-item" data-menu="business">
-                    <span>🏪 BUSINESS INFO</span>
+                    <span><i class="fas fa-store"></i> BUSINESS INFO</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="store-profile">Store Profile</div>
-                        <div class="menu-option" data-config="location">Location Setup</div>
-                        <div class="menu-option" data-config="logo">Business Logo</div>
+                        <div class="menu-option" data-config="store-profile"><i class="fas fa-id-card"></i> Store Profile</div>
+                        <div class="menu-option" data-config="location"><i class="fas fa-map-marker-alt"></i> Location Setup</div>
+                        <div class="menu-option" data-config="logo"><i class="fas fa-image"></i> Business Logo</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-menu="reports">
+                    <span><i class="fas fa-chart-bar"></i> REPORTS</span>
+                    <div class="dropdown-menu">
+                        <div class="menu-option" data-config="sales-report"><i class="fas fa-chart-line"></i> Sales Reports</div>
+                        <div class="menu-option" data-config="inventory-report"><i class="fas fa-clipboard-list"></i> Inventory Reports</div>
+                        <div class="menu-option" data-config="cashier-report"><i class="fas fa-user-clock"></i> Cashier Performance</div>
+                        <div class="menu-option" data-config="tax-report"><i class="fas fa-receipt"></i> Tax Reports</div>
                     </div>
                 </div>
                 
                 <div class="menu-item" data-menu="system">
-                    <span>⚙️ SYSTEM SETTINGS</span>
+                    <span><i class="fas fa-cogs"></i> SYSTEM SETTINGS</span>
                     <div class="dropdown-menu">
-                        <div class="menu-option" data-config="backup">Backup & Restore</div>
-                        <div class="menu-option" data-config="reset">Reset System</div>
-                        <div class="menu-option" data-config="licensing">Licensing</div>
+                        <div class="menu-option" data-config="backup"><i class="fas fa-cloud-upload-alt"></i> Backup & Restore</div>
+                        <div class="menu-option" data-config="reset"><i class="fas fa-redo"></i> Reset System</div>
+                        <div class="menu-option" data-config="licensing"><i class="fas fa-certificate"></i> Licensing</div>
                     </div>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
                 </div>
             </div>
             
             <div class="content-area">
-                <div class="departments">
-                    <button class="dept-btn" data-dept="MEAT">MEAT</button>
-                    <button class="dept-btn" data-dept="PRODUCE">PRODUCE</button>
-                    <button class="dept-btn" data-dept="DAIRY">DAIRY</button>
-                    <button class="dept-btn" data-dept="BAKERY">BAKERY</button>
-                    <button class="dept-btn" data-dept="SODA">SODA</button>
-                    <button class="dept-btn" data-dept="BEER">BEER</button>
-                    <button class="dept-btn" data-dept="LIQUOR">LIQUOR</button>
-                    <button class="dept-btn" data-dept="CIGARETTES">CIGARETTES</button>
-                    <button class="dept-btn" data-dept="DELI">DELI</button>
-                    <button class="dept-btn" data-dept="FROZEN">FROZEN</button>
-                    <button class="dept-btn" data-dept="CANDY">CANDY</button>
-                    <button class="dept-btn" data-dept="HEALTH">HEALTH</button>
-                    <button class="dept-btn" data-dept="HOUSEHOLD">HOUSEHOLD</button>
-                    <button class="dept-btn" data-dept="MISC">MISC</button>
-                    <button class="dept-btn" data-dept="COUPONS">COUPONS</button>
-                    <button class="dept-btn" data-dept="OPTIONS">OPTIONS<br>F10</button>
+                <!-- Department Buttons with Search -->
+                <div class="departments-container">
+                    <div class="departments-header">
+                        <h3><i class="fas fa-th-large"></i> Product Categories</h3>
+                        <div class="department-search">
+                            <input type="text" id="departmentSearch" placeholder="Search categories...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <div class="departments">
+                        <button class="dept-btn" data-dept="MEAT"><i class="fas fa-drumstick-bite"></i><span>MEAT</span></button>
+                        <button class="dept-btn" data-dept="PRODUCE"><i class="fas fa-apple-alt"></i><span>PRODUCE</span></button>
+                        <button class="dept-btn" data-dept="DAIRY"><i class="fas fa-cheese"></i><span>DAIRY</span></button>
+                        <button class="dept-btn" data-dept="BAKERY"><i class="fas fa-bread-slice"></i><span>BAKERY</span></button>
+                        <button class="dept-btn" data-dept="SODA"><i class="fas fa-glass-whiskey"></i><span>SODA</span></button>
+                        <button class="dept-btn" data-dept="BEER"><i class="fas fa-beer"></i><span>BEER</span></button>
+                        <button class="dept-btn" data-dept="LIQUOR"><i class="fas fa-wine-bottle"></i><span>LIQUOR</span></button>
+                        <button class="dept-btn" data-dept="CIGARETTES"><i class="fas fa-smoking"></i><span>CIGARETTES</span></button>
+                        <button class="dept-btn" data-dept="DELI"><i class="fas fa-utensils"></i><span>DELI</span></button>
+                        <button class="dept-btn" data-dept="FROZEN"><i class="fas fa-snowflake"></i><span>FROZEN</span></button>
+                        <button class="dept-btn" data-dept="CANDY"><i class="fas fa-candy-cane"></i><span>CANDY</span></button>
+                        <button class="dept-btn" data-dept="HEALTH"><i class="fas fa-first-aid"></i><span>HEALTH</span></button>
+                        <button class="dept-btn" data-dept="HOUSEHOLD"><i class="fas fa-home"></i><span>HOUSEHOLD</span></button>
+                        <button class="dept-btn" data-dept="MISC"><i class="fas fa-box"></i><span>MISC</span></button>
+                        <button class="dept-btn" data-dept="COUPONS"><i class="fas fa-tags"></i><span>COUPONS</span></button>
+                        <button class="dept-btn" data-dept="OPTIONS"><i class="fas fa-cog"></i><span>OPTIONS</span></button>
+                    </div>
                 </div>
-
+                
+                <!-- Sale Area -->
                 <div class="sale-area">
-                    <div class="sale-header">SALE ITEMS</div>
+                    <div class="sale-header">
+                        <div class="sale-title"><i class="fas fa-shopping-cart"></i> SALE ITEMS</div>
+                        <div class="sale-actions">
+                            <button id="clearSearchBtn" class="action-icon-btn" title="Clear Search"><i class="fas fa-times"></i></button>
+                            <div class="sale-search">
+                                <input type="text" id="saleSearch" placeholder="Search items...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="sale-list" id="saleList">
                         <div class="sale-item" style="background: #34495e; color: white; font-weight: bold;">
                             <div>DESCRIPTION</div>
                             <div>QTY</div>
                             <div>PRICE</div>
                             <div>TAX</div>
+                            <div>ACTION</div>
                         </div>
                     </div>
                     <div class="sale-totals">
                         <div class="total-row">
                             <span>SUBTOTAL:</span>
-                            <span id="subtotal">$0.00</span>
+                            <span id="subtotal">₦0.00</span>
                         </div>
                         <div class="total-row">
                             <span>DISCOUNT:</span>
-                            <span id="discount">$0.00</span>
+                            <span id="discount">₦0.00</span>
                         </div>
                         <div class="total-row">
                             <span>TAX:</span>
-                            <span id="tax">$0.00</span>
+                            <span id="tax">₦0.00</span>
                         </div>
                         <div class="total-row final">
                             <span>TOTAL:</span>
-                            <span id="total">$0.00</span>
+                            <span id="total">₦0.00</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="barcode-input">
-                <label for="barcodeInput" style="font-weight: bold;">BARCODE/ITEM:</label>
-                <input type="text" id="barcodeInput" placeholder="Scan barcode or enter item code..." autocomplete="off">
-                <button class="scan-btn" onclick="addItemByBarcode()">ADD ITEM</button>
+                
+                <div class="barcode-input">
+                    <div class="barcode-icon"><i class="fas fa-barcode"></i></div>
+                    <label for="barcodeInput" style="font-weight: bold;">BARCODE/ITEM:</label>
+                    <input type="text" id="barcodeInput" placeholder="Scan barcode or enter item code..." autocomplete="off">
+                    <button class="scan-btn" onclick="addItemByBarcode()"><i class="fas fa-plus"></i> ADD ITEM</button>
+                </div>
             </div>
         </div>
 
         <div class="side-panel">
-            <button class="side-btn payment" onclick="processPayment('CASH')">CASH</button>
-            <button class="side-btn payment" onclick="processPayment('CREDIT')">CREDIT</button>
-            <button class="side-btn payment" onclick="processPayment('CHECK')">CHECK</button>
-            <button class="side-btn payment" onclick="processPayment('EBT')">EBT CARD</button>
+            <div class="side-panel-section">
+                <h4><i class="fas fa-money-bill-wave"></i> PAYMENT OPTIONS</h4>
+                <button class="side-btn payment" onclick="processPayment('CASH')"><i class="fas fa-money-bill"></i> CASH</button>
+                <button class="side-btn payment" onclick="processPayment('CREDIT')"><i class="fas fa-credit-card"></i> CREDIT</button>
+                <button class="side-btn payment" onclick="processPayment('CHECK')"><i class="fas fa-money-check"></i> CHECK</button>
+                <button class="side-btn payment" onclick="processPayment('EBT')"><i class="fas fa-id-card"></i> EBT CARD</button>
+            </div>
             
-            <button class="side-btn action" onclick="refundItem()">REFUND ITEM</button>
-            <button class="side-btn action" onclick="reprintReceipt()">RE-PRINT RECEIPT</button>
-            <button class="side-btn action" onclick="holdOrder()">HOLD ORDER</button>
-            <button class="side-btn action" onclick="recallOrder()">RECALL ORDER</button>
+            <div class="side-panel-section">
+                <h4><i class="fas fa-exchange-alt"></i> ORDER ACTIONS</h4>
+                <button class="side-btn action" onclick="holdOrder()"><i class="fas fa-pause-circle"></i> HOLD ORDER</button>
+                <button class="side-btn action" onclick="recallOrder()"><i class="fas fa-redo"></i> RECALL ORDER</button>
+                <button class="side-btn info" onclick="changeOrder()"><i class="fas fa-edit"></i> CHANGE ORDER</button>
+                <button class="side-btn danger" onclick="cancelOrder()"><i class="fas fa-times-circle"></i> CANCEL ORDER</button>
+            </div>
             
-            <button class="side-btn danger" onclick="cancelOrder()">CANCEL ORDER</button>
-            <button class="side-btn info" onclick="changeOrder()">CHANGE SALES ORDER</button>
-            <button class="side-btn info" onclick="applyDiscount()">APPLY DISCOUNT</button>
-            <button class="side-btn info" onclick="voidLastItem()">VOID LAST ITEM</button>
+            <div class="side-panel-section">
+                <h4><i class="fas fa-tools"></i> UTILITIES</h4>
+                <button class="side-btn action" onclick="reprintReceipt()"><i class="fas fa-print"></i> RE-PRINT RECEIPT</button>
+                <button class="side-btn action" onclick="refundItem()"><i class="fas fa-undo"></i> REFUND ITEM</button>
+                <button class="side-btn info" onclick="applyDiscount()"><i class="fas fa-percent"></i> APPLY DISCOUNT</button>
+                <button class="side-btn info" onclick="voidLastItem()"><i class="fas fa-trash-alt"></i> VOID LAST ITEM</button>
+                <button class="side-btn info" onclick="showReports()"><i class="fas fa-chart-bar"></i> REPORTS</button>
+            </div>
         </div>
     </div>
     </div>
@@ -877,968 +282,81 @@
     </div>
 
     <div class="status-bar">
-        <span>Cashier: <span id="cashierName">SYSTEM USER</span></span>
-        <span>Terminal: <span id="terminalId">001</span></span>
-        <span>Date: <span id="currentDate"></span></span>
-        <span id="systemStatus">READY</span>
+        <div class="status-item"><i class="fas fa-user"></i> Cashier: <span id="cashierName">SYSTEM USER</span></div>
+        <div class="status-item"><i class="fas fa-desktop"></i> Terminal: <span id="terminalId">001</span></div>
+        <div class="status-item"><i class="fas fa-calendar-alt"></i> Date: <span id="currentDate"></span></div>
+        <div class="status-item"><i class="fas fa-clock"></i> Time: <span id="currentTime"></span></div>
+        <div class="status-item status-indicator"><i class="fas fa-info-circle"></i> Status: <span id="systemStatus">READY</span></div>
     </div>
 
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <h3>Process Payment</h3>
-            <p>Payment Type: <span id="paymentType"></span></p>
-            <p>Amount Due: <span id="amountDue"></span></p>
-            <div style="margin: 20px 0;">
-                <label>Amount Received:</label>
-                <input type="number" id="amountReceived" step="0.01" style="padding: 5px; margin-left: 10px;">
+        <div class="modal-content payment-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-money-bill-wave"></i> Process Payment</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="payment-details">
+                <div class="payment-info">
+                    <div class="payment-row">
+                        <div class="payment-label"><i class="fas fa-credit-card"></i> Payment Type:</div>
+                        <div class="payment-value" id="paymentType">CASH</div>
+                    </div>
+                    <div class="payment-row">
+                        <div class="payment-label"><i class="fas fa-money-bill-alt"></i> Amount Due:</div>
+                        <div class="payment-value amount-due" id="amountDue">₦0.00</div>
+                    </div>
+                    <div class="payment-row">
+                        <div class="payment-label"><i class="fas fa-hand-holding-usd"></i> Amount Received:</div>
+                        <div class="payment-value">
+                            <input type="number" id="amountReceived" step="0.01" class="payment-input" placeholder="Enter amount">
+                        </div>
+                    </div>
+                    <div class="payment-row" id="changeRow" style="display: none;">
+                        <div class="payment-label"><i class="fas fa-exchange-alt"></i> Change:</div>
+                        <div class="payment-value amount-change" id="changeAmount">₦0.00</div>
+                    </div>
+                </div>
+                <div class="quick-amounts">
+                    <h4>Quick Amount</h4>
+                    <div class="quick-amount-buttons">
+                        <button class="quick-amount-btn" onclick="setQuickAmount(1000)">₦1,000</button>
+                        <button class="quick-amount-btn" onclick="setQuickAmount(2000)">₦2,000</button>
+                        <button class="quick-amount-btn" onclick="setQuickAmount(5000)">₦5,000</button>
+                        <button class="quick-amount-btn" onclick="setQuickAmount(10000)">₦10,000</button>
+                        <button class="quick-amount-btn" onclick="setQuickAmount('exact')">Exact</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-buttons">
-                <button class="modal-btn confirm" onclick="completePayment()">COMPLETE</button>
-                <button class="modal-btn cancel" onclick="closeModal()">CANCEL</button>
+                <button class="modal-btn confirm" onclick="completePayment()"><i class="fas fa-check-circle"></i> COMPLETE</button>
+                <button class="modal-btn cancel" onclick="closeModal()"><i class="fas fa-times-circle"></i> CANCEL</button>
             </div>
         </div>
     </div>
 
     <!-- Item Selection Modal -->
     <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <h3>Select Item</h3>
-            <div id="itemList"></div>
-            <div class="modal-buttons">
-                <button class="modal-btn cancel" onclick="closeModal()">CANCEL</button>
+        <div class="modal-content item-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-th-list"></i> <span id="itemModalTitle">Select Item</span></h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="item-search">
+                <input type="text" id="itemSearchInput" placeholder="Search items...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div id="itemModalContent" class="item-grid">
+                 <!-- Items will be loaded here dynamically -->
+             </div>
+             <div id="itemList" class="item-list"></div>
+              <div class="modal-buttons">
+                  <button class="modal-btn cancel" onclick="closeModal()"><i class="fas fa-times-circle"></i> CLOSE</button>
+              </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // User Authentication System
-        const users = {
-            'cashier01': { 
-                password: 'cash123', 
-                role: 'cashier', 
-                name: 'John Cashier',
-                permissions: ['sale', 'refund', 'hold_recall']
-            },
-            'cashier02': { 
-                password: 'cash456', 
-                role: 'cashier', 
-                name: 'Mary Cashier',
-                permissions: ['sale', 'refund', 'hold_recall']
-            },
-            'manager01': { 
-                password: 'mgr456', 
-                role: 'manager', 
-                name: 'James Manager',
-                permissions: ['sale', 'refund', 'hold_recall', 'discount', 'void', 'reports']
-            },
-            'admin': { 
-                password: 'admin789', 
-                role: 'admin', 
-                name: 'System Admin',
-                permissions: ['all']
-            }
-        };
-
-        let currentUser = null;
-        let sessionActive = false;
-
-        // POS System State
-        let currentSale = {
-            items: [],
-            subtotal: 0,
-            discount: 0,
-            tax: 0,
-            total: 0
-        };
-
-        let heldOrders = [];
-        let lastTransaction = null;
-
-        // Configuration System
-        let configData = {
-            items: [],
-            groups: [],
-            units: [],
-            taxRates: [],
-            printers: [],
-            users: [],
-            storeProfile: {},
-            systemSettings: {}
-        };
-
-        // Sample product database
-        const productDatabase = {
-            '12345': { name: 'Coca Cola 12oz', price: 1.99, taxable: true, ebtEligible: false, department: 'SODA' },
-            '23456': { name: 'Bananas per lb', price: 0.79, taxable: false, ebtEligible: true, department: 'PRODUCE' },
-            '34567': { name: 'Milk Gallon', price: 3.49, taxable: false, ebtEligible: true, department: 'DAIRY' },
-            '45678': { name: 'Ground Beef per lb', price: 4.99, taxable: false, ebtEligible: true, department: 'MEAT' },
-            '56789': { name: 'Marlboro Red', price: 8.99, taxable: true, ebtEligible: false, department: 'CIGARETTES' },
-            '67890': { name: 'White Bread', price: 2.49, taxable: false, ebtEligible: true, department: 'BAKERY' }
-        };
-
-        // Department items for quick access
-        const departmentItems = {
-            'MEAT': [
-                { name: 'Ground Beef (lb)', price: 4.99, taxable: false, ebtEligible: true },
-                { name: 'Chicken Breast (lb)', price: 5.99, taxable: false, ebtEligible: true },
-                { name: 'Pork Chops (lb)', price: 3.99, taxable: false, ebtEligible: true }
-            ],
-            'PRODUCE': [
-                { name: 'Bananas (lb)', price: 0.79, taxable: false, ebtEligible: true },
-                { name: 'Apples (lb)', price: 1.99, taxable: false, ebtEligible: true },
-                { name: 'Tomatoes (lb)', price: 2.49, taxable: false, ebtEligible: true }
-            ],
-            'DAIRY': [
-                { name: 'Milk Gallon', price: 3.49, taxable: false, ebtEligible: true },
-                { name: 'Eggs Dozen', price: 2.99, taxable: false, ebtEligible: true },
-                { name: 'Cheese Slices', price: 4.49, taxable: false, ebtEligible: true }
-            ],
-            'SODA': [
-                { name: 'Coca Cola 12oz', price: 1.99, taxable: true, ebtEligible: false },
-                { name: 'Pepsi 12oz', price: 1.99, taxable: true, ebtEligible: false },
-                { name: 'Sprite 12oz', price: 1.99, taxable: true, ebtEligible: false }
-            ]
-        };
-
-        // Initialize system
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeLogin();
-            
-            // Check if user is already logged in (session persistence)
-            const savedUser = sessionStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showPOSSystem();
-            } else {
-                showLoginScreen();
-            }
-        });
-
-        // Login System Functions
-        function initializeLogin() {
-            const loginForm = document.getElementById('loginForm');
-            const logoutBtn = document.getElementById('logoutBtn');
-            
-            loginForm.addEventListener('submit', handleLogin);
-            logoutBtn.addEventListener('click', handleLogout);
-            
-            // Focus username field
-            document.getElementById('username').focus();
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('loginError');
-            
-            // Clear previous errors
-            errorDiv.style.display = 'none';
-            errorDiv.textContent = '';
-            
-            // Validate credentials
-            if (users[username] && users[username].password === password) {
-                // Successful login
-                currentUser = {
-                    username: username,
-                    name: users[username].name,
-                    role: users[username].role,
-                    permissions: users[username].permissions
-                };
-                
-                // Save session
-                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-                sessionActive = true;
-                
-                // Show POS system
-                showPOSSystem();
-                
-                // Log successful login
-                console.log('Login successful:', currentUser.name, 'Role:', currentUser.role);
-                
-            } else {
-                // Failed login
-                showLoginError('Invalid username or password');
-                
-                // Clear password field
-                document.getElementById('password').value = '';
-                document.getElementById('username').focus();
-                
-                // Log failed attempt
-                console.log('Login failed for username:', username);
-            }
-        }
-
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Clear session
-                currentUser = null;
-                sessionActive = false;
-                sessionStorage.removeItem('currentUser');
-                
-                // Clear any active sale
-                if (currentSale.items.length > 0) {
-                    if (confirm('There is an active sale. Hold this order before logout?')) {
-                        holdOrder();
-                    } else {
-                        currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
-                    }
-                }
-                
-                // Show login screen
-                showLoginScreen();
-                
-                console.log('User logged out');
-            }
-        }
-
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('posSystem').style.display = 'none';
-            document.querySelector('.status-bar').style.display = 'none';
-            
-            // Clear login form
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('loginError').style.display = 'none';
-            
-            // Focus username field
-            setTimeout(() => {
-                document.getElementById('username').focus();
-            }, 100);
-        }
-
-        function showPOSSystem() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('posSystem').style.display = 'grid';
-            document.querySelector('.status-bar').style.display = 'flex';
-            
-            // Update user info in header
-            document.getElementById('loggedInUser').textContent = currentUser.name;
-            
-            // Initialize POS functions
-            initializePOS();
-            
-            // Initialize configuration menu
-            initializeConfigMenu();
-            
-            // Update status bar with user info
-            updateStatusBar('Welcome, ' + currentUser.name + ' (' + currentUser.role.toUpperCase() + ')');
-        }
-
-        function showLoginError(message) {
-            const errorDiv = document.getElementById('loginError');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            
-            // Auto-hide error after 5 seconds
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
-        }
-
-        function hasPermission(action) {
-            if (!currentUser) return false;
-            if (currentUser.permissions.includes('all')) return true;
-            return currentUser.permissions.includes(action);
-        }
-
-        function initializePOS() {
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
-            
-            // Auto-focus barcode input
-            document.getElementById('barcodeInput').focus();
-            
-            // Enter key support for barcode input
-            document.getElementById('barcodeInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    addItemByBarcode();
-                }
-            });
-            
-            // Update cashier name in status bar
-            document.getElementById('cashierName').textContent = currentUser.name;
-        }
-
-        // Configuration Menu System
-        function initializeConfigMenu() {
-            // Add click handlers for menu options
-            document.querySelectorAll('.menu-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const configType = this.dataset.config;
-                    openConfigModal(configType);
-                });
-            });
-
-            // Hide menu bar for non-admin users in basic version
-            const menuBar = document.getElementById('configMenuBar');
-            if (currentUser.role !== 'admin' && currentUser.role !== 'manager') {
-                menuBar.style.display = 'none';
-            } else {
-                menuBar.style.display = 'flex';
-            }
-        }
-
-        function openConfigModal(configType) {
-            if (!hasPermission('all') && currentUser.role !== 'manager') {
-                alert('Access denied: Administrative privileges required');
-                return;
-            }
-
-            const modal = document.getElementById('configModal');
-            const title = document.getElementById('configTitle');
-            const content = document.getElementById('configContent');
-
-            // Set title and load content based on config type
-            const configInfo = getConfigInfo(configType);
-            title.textContent = configInfo.title;
-            content.innerHTML = configInfo.content;
-
-            // Show modal
-            modal.style.display = 'block';
-
-            // Initialize specific config functionality
-            initializeConfigModule(configType);
-        }
-
-        function getConfigInfo(configType) {
-            const configs = {
-                'items': {
-                    title: 'Item Management',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-actions" style="margin-top: 0; padding-top: 0; border-top: none;">
-                                <button class="config-btn primary" onclick="addNewItem()">Add New Item</button>
-                                <button class="config-btn secondary" onclick="importItems()">Import Items</button>
-                            </div>
-                            <table class="data-table" id="itemsTable">
-                                <thead>
-                                    <tr>
-                                        <th>Barcode</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Department</th>
-                                        <th>Taxable</th>
-                                        <th>EBT</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="itemsTableBody">
-                                    <!-- Items will be loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    `
-                },
-                'groups': {
-                    title: 'Product Groups',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-group">
-                                <label>Group Name:</label>
-                                <input type="text" id="groupName" placeholder="Enter group name">
-                            </div>
-                            <div class="form-group">
-                                <label>Description:</label>
-                                <textarea id="groupDescription" rows="3" placeholder="Group description"></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button class="config-btn primary" onclick="saveGroup()">Save Group</button>
-                                <button class="config-btn secondary" onclick="clearGroupForm()">Clear</button>
-                            </div>
-                            <table class="data-table" id="groupsTable">
-                                <thead>
-                                    <tr>
-                                        <th>Group Name</th>
-                                        <th>Description</th>
-                                        <th>Items Count</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="groupsTableBody">
-                                    <!-- Groups will be loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    `
-                },
-                'tax': {
-                    title: 'Tax Configuration',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-group">
-                                <label>Tax Name:</label>
-                                <input type="text" id="taxName" placeholder="e.g., Sales Tax, VAT">
-                            </div>
-                            <div class="form-group">
-                                <label>Tax Rate (%):</label>
-                                <input type="number" id="taxRate" step="0.01" placeholder="8.25">
-                            </div>
-                            <div class="form-group">
-                                <label>Apply to:</label>
-                                <select id="taxApplyTo">
-                                    <option value="all">All Items</option>
-                                    <option value="taxable">Taxable Items Only</option>
-                                    <option value="specific">Specific Categories</option>
-                                </select>
-                            </div>
-                            <div class="form-actions">
-                                <button class="config-btn primary" onclick="saveTaxRate()">Save Tax Rate</button>
-                                <button class="config-btn secondary" onclick="clearTaxForm()">Clear</button>
-                            </div>
-                        </div>
-                    `
-                },
-                'user-accounts': {
-                    title: 'User Account Management',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-group">
-                                <label>Username:</label>
-                                <input type="text" id="newUsername" placeholder="Enter username">
-                            </div>
-                            <div class="form-group">
-                                <label>Full Name:</label>
-                                <input type="text" id="newUserFullName" placeholder="Enter full name">
-                            </div>
-                            <div class="form-group">
-                                <label>Password:</label>
-                                <input type="password" id="newUserPassword" placeholder="Enter password">
-                            </div>
-                            <div class="form-group">
-                                <label>Role:</label>
-                                <select id="newUserRole">
-                                    <option value="cashier">Cashier</option>
-                                    <option value="manager">Manager</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-                            <div class="form-actions">
-                                <button class="config-btn primary" onclick="saveUser()">Create User</button>
-                                <button class="config-btn secondary" onclick="clearUserForm()">Clear</button>
-                            </div>
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Full Name</th>
-                                        <th>Role</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="usersTableBody">
-                                    <!-- Users will be loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    `
-                },
-                'store-profile': {
-                    title: 'Store Profile',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-group">
-                                <label>Store Name:</label>
-                                <input type="text" id="storeName" placeholder="Your Store Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Address:</label>
-                                <textarea id="storeAddress" rows="3" placeholder="Store address"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone:</label>
-                                <input type="tel" id="storePhone" placeholder="Store phone number">
-                            </div>
-                            <div class="form-group">
-                                <label>Email:</label>
-                                <input type="email" id="storeEmail" placeholder="Store email">
-                            </div>
-                            <div class="form-group">
-                                <label>Tax ID:</label>
-                                <input type="text" id="storeTaxId" placeholder="Tax identification number">
-                            </div>
-                            <div class="form-actions">
-                                <button class="config-btn primary" onclick="saveStoreProfile()">Save Profile</button>
-                                <button class="config-btn secondary" onclick="loadStoreProfile()">Reload</button>
-                            </div>
-                        </div>
-                    `
-                },
-                'printer-settings': {
-                    title: 'Printer Configuration',
-                    content: `
-                        <div class="config-form">
-                            <div class="form-group">
-                                <label>Printer Name:</label>
-                                <input type="text" id="printerName" placeholder="Receipt Printer">
-                            </div>
-                            <div class="form-group">
-                                <label>Printer Type:</label>
-                                <select id="printerType">
-                                    <option value="thermal">Thermal Printer</option>
-                                    <option value="inkjet">Inkjet Printer</option>
-                                    <option value="laser">Laser Printer</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Paper Width:</label>
-                                <select id="paperWidth">
-                                    <option value="58mm">58mm</option>
-                                    <option value="80mm">80mm</option>
-                                    <option value="A4">A4</option>
-                                </select>
-                            </div>
-                            <div class="form-actions">
-                                <button class="config-btn primary" onclick="savePrinterSettings()">Save Settings</button>
-                                <button class="config-btn secondary" onclick="testPrint()">Test Print</button>
-                            </div>
-                        </div>
-                    `
-                }
-            };
-
-            return configs[configType] || {
-                title: 'Configuration',
-                content: `<div class="config-form"><p>Configuration module for ${configType} is under development.</p></div>`
-            };
-        }
-
-        function initializeConfigModule(configType) {
-            switch(configType) {
-                case 'items':
-                    loadItemsTable();
-                    break;
-                case 'groups':
-                    loadGroupsTable();
-                    break;
-                case 'user-accounts':
-                    loadUsersTable();
-                    break;
-                case 'store-profile':
-                    loadStoreProfile();
-                    break;
-                // Add more cases as needed
-            }
-        }
-
-        // Configuration Module Functions
-        function loadItemsTable() {
-            const tbody = document.getElementById('itemsTableBody');
-            tbody.innerHTML = '';
-
-            // Load from productDatabase
-            Object.keys(productDatabase).forEach(barcode => {
-                const item = productDatabase[barcode];
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${barcode}</td>
-                    <td>${item.name}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>${item.department}</td>
-                    <td>${item.taxable ? 'Yes' : 'No'}</td>
-                    <td>${item.ebtEligible ? 'Yes' : 'No'}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit" onclick="editItem('${barcode}')">Edit</button>
-                        <button class="action-btn delete" onclick="deleteItem('${barcode}')">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function loadUsersTable() {
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = '';
-
-            Object.keys(users).forEach(username => {
-                const user = users[username];
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${username}</td>
-                    <td>${user.name}</td>
-                    <td>${user.role}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit" onclick="editUser('${username}')">Edit</button>
-                        <button class="action-btn delete" onclick="deleteUser('${username}')">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function addNewItem() {
-            alert('Add New Item form - Not implemented yet');
-        }
-
-        function saveUser() {
-            const username = document.getElementById('newUsername').value.trim();
-            const fullName = document.getElementById('newUserFullName').value.trim();
-            const password = document.getElementById('newUserPassword').value;
-            const role = document.getElementById('newUserRole').value;
-
-            if (!username || !fullName || !password) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            if (users[username]) {
-                alert('Username already exists');
-                return;
-            }
-
-            users[username] = {
-                password: password,
-                role: role,
-                name: fullName,
-                permissions: role === 'admin' ? ['all'] : role === 'manager' ? ['sale', 'refund', 'hold_recall', 'discount', 'void', 'reports'] : ['sale', 'refund', 'hold_recall']
-            };
-
-            alert('User created successfully');
-            clearUserForm();
-            loadUsersTable();
-        }
-
-        function clearUserForm() {
-            document.getElementById('newUsername').value = '';
-            document.getElementById('newUserFullName').value = '';
-            document.getElementById('newUserPassword').value = '';
-            document.getElementById('newUserRole').value = 'cashier';
-        }
-
-        function loadStoreProfile() {
-            // Load store profile data if exists
-            document.getElementById('storeName').value = 'Tsquare POS - Naija Market';
-            document.getElementById('storeAddress').value = 'Lagos, Nigeria';
-            document.getElementById('storePhone').value = '+234-xxx-xxxx';
-            document.getElementById('storeEmail').value = 'store@tsquarepos.com';
-            document.getElementById('storeTaxId').value = 'TAX-12345';
-        }
-
-        function saveStoreProfile() {
-            const profile = {
-                name: document.getElementById('storeName').value,
-                address: document.getElementById('storeAddress').value,
-                phone: document.getElementById('storePhone').value,
-                email: document.getElementById('storeEmail').value,
-                taxId: document.getElementById('storeTaxId').value
-            };
-
-            // Save to local storage or backend
-            localStorage.setItem('storeProfile', JSON.stringify(profile));
-            alert('Store profile saved successfully');
-        }
-
-        function closeConfigModal() {
-            document.getElementById('configModal').style.display = 'none';
-        }
-
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById('currentDate').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-        }
-
-        function addItemByBarcode() {
-            const barcode = document.getElementById('barcodeInput').value.trim();
-            if (!barcode) return;
-
-            const product = productDatabase[barcode];
-            if (product) {
-                addItemToSale(product);
-                document.getElementById('barcodeInput').value = '';
-                document.getElementById('barcodeInput').focus();
-            } else {
-                alert('Product not found: ' + barcode);
-            }
-        }
-
-        function addItemToSale(product, quantity = 1) {
-            const item = {
-                id: Date.now(),
-                name: product.name,
-                price: product.price,
-                quantity: quantity,
-                taxable: product.taxable,
-                ebtEligible: product.ebtEligible,
-                total: product.price * quantity
-            };
-
-            currentSale.items.push(item);
-            updateSaleDisplay();
-            updateStatusBar('Item added: ' + product.name);
-        }
-
-        function updateSaleDisplay() {
-            const saleList = document.getElementById('saleList');
-            
-            // Keep header and clear items
-            saleList.innerHTML = `
-                <div class="sale-item" style="background: #34495e; color: white; font-weight: bold;">
-                    <div>DESCRIPTION</div>
-                    <div>QTY</div>
-                    <div>PRICE</div>
-                    <div>TAX</div>
-                </div>
-            `;
-
-            currentSale.items.forEach((item, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'sale-item';
-                itemDiv.innerHTML = `
-                    <div>${item.name}</div>
-                    <div><input type="number" class="quantity-input" value="${item.quantity}" 
-                         onchange="updateItemQuantity(${index}, this.value)" min="1"></div>
-                    <div>$${item.total.toFixed(2)}</div>
-                    <div>${item.taxable ? 'T' : ''}</div>
-                `;
-                itemDiv.onclick = () => selectItem(index);
-                saleList.appendChild(itemDiv);
-            });
-
-            calculateTotals();
-        }
-
-        function updateItemQuantity(index, newQuantity) {
-            const qty = parseInt(newQuantity) || 1;
-            currentSale.items[index].quantity = qty;
-            currentSale.items[index].total = currentSale.items[index].price * qty;
-            updateSaleDisplay();
-        }
-
-        function calculateTotals() {
-            currentSale.subtotal = currentSale.items.reduce((sum, item) => sum + item.total, 0);
-            currentSale.tax = currentSale.items
-                .filter(item => item.taxable)
-                .reduce((sum, item) => sum + (item.total * 0.08), 0); // 8% tax rate
-            currentSale.total = currentSale.subtotal + currentSale.tax - currentSale.discount;
-
-            document.getElementById('subtotal').textContent = '$' + currentSale.subtotal.toFixed(2);
-            document.getElementById('discount').textContent = '$' + currentSale.discount.toFixed(2);
-            document.getElementById('tax').textContent = '$' + currentSale.tax.toFixed(2);
-            document.getElementById('total').textContent = '$' + currentSale.total.toFixed(2);
-        }
-
-        // Department button handlers
-        document.querySelectorAll('.dept-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const dept = this.dataset.dept;
-                
-                if (dept === 'OPTIONS') {
-                    openAdminPanel();
-                } else if (departmentItems[dept]) {
-                    showDepartmentItems(dept);
-                } else {
-                    updateStatusBar('Department: ' + dept + ' - Not implemented yet');
-                }
-            });
-        });
-
-        function showDepartmentItems(department) {
-            const items = departmentItems[department];
-            const itemList = document.getElementById('itemList');
-            
-            itemList.innerHTML = '<h4>' + department + ' ITEMS</h4>';
-            
-            items.forEach(item => {
-                const itemBtn = document.createElement('button');
-                itemBtn.className = 'dept-btn';
-                itemBtn.style.width = '100%';
-                itemBtn.style.margin = '5px 0';
-                itemBtn.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-                itemBtn.onclick = () => {
-                    addItemToSale(item);
-                    closeModal();
-                };
-                itemList.appendChild(itemBtn);
-            });
-
-            document.getElementById('itemModal').style.display = 'block';
-        }
-
-        function processPayment(type) {
-            if (currentSale.items.length === 0) {
-                alert('No items in sale');
-                return;
-            }
-
-            document.getElementById('paymentType').textContent = type;
-            document.getElementById('amountDue').textContent = '$' + currentSale.total.toFixed(2);
-            document.getElementById('amountReceived').value = currentSale.total.toFixed(2);
-            document.getElementById('paymentModal').style.display = 'block';
-        }
-
-        function completePayment() {
-            const amountReceived = parseFloat(document.getElementById('amountReceived').value) || 0;
-            const paymentType = document.getElementById('paymentType').textContent;
-            
-            if (amountReceived < currentSale.total) {
-                alert('Insufficient payment amount');
-                return;
-            }
-
-            const change = amountReceived - currentSale.total;
-            
-            // Store transaction
-            lastTransaction = {
-                items: [...currentSale.items],
-                subtotal: currentSale.subtotal,
-                tax: currentSale.tax,
-                total: currentSale.total,
-                paymentType: paymentType,
-                amountReceived: amountReceived,
-                change: change,
-                timestamp: new Date()
-            };
-
-            if (change > 0) {
-                alert(`Payment complete. Change due: $${change.toFixed(2)}`);
-            } else {
-                alert('Payment complete. Thank you!');
-            }
-
-            // Clear sale
-            currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
-            updateSaleDisplay();
-            closeModal();
-            updateStatusBar('Transaction completed');
-            
-            // Print receipt (simulated)
-            printReceipt(lastTransaction);
-        }
-
-        function printReceipt(transaction) {
-            console.log('=== RECEIPT ===');
-            console.log('Date:', transaction.timestamp.toLocaleString());
-            console.log('Items:');
-            transaction.items.forEach(item => {
-                console.log(`${item.name} x${item.quantity} - $${item.total.toFixed(2)}`);
-            });
-            console.log('Subtotal:', '$' + transaction.subtotal.toFixed(2));
-            console.log('Tax:', '$' + transaction.tax.toFixed(2));
-            console.log('Total:', '$' + transaction.total.toFixed(2));
-            console.log('Payment:', transaction.paymentType);
-            console.log('Amount Received:', '$' + transaction.amountReceived.toFixed(2));
-            console.log('Change:', '$' + transaction.change.toFixed(2));
-            console.log('===============');
-        }
-
-        function cancelOrder() {
-            if (currentSale.items.length === 0) {
-                alert('No active sale to cancel');
-                return;
-            }
-            
-            if (confirm('Cancel current order? This cannot be undone.')) {
-                currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
-                updateSaleDisplay();
-                updateStatusBar('Order cancelled');
-            }
-        }
-
-        function holdOrder() {
-            if (currentSale.items.length === 0) {
-                alert('No items to hold');
-                return;
-            }
-            
-            heldOrders.push({
-                id: Date.now(),
-                sale: { ...currentSale, items: [...currentSale.items] },
-                timestamp: new Date()
-            });
-            
-            currentSale = { items: [], subtotal: 0, discount: 0, tax: 0, total: 0 };
-            updateSaleDisplay();
-            updateStatusBar('Order held');
-        }
-
-        function recallOrder() {
-            if (heldOrders.length === 0) {
-                alert('No held orders');
-                return;
-            }
-            
-            const orderList = heldOrders.map((order, index) => 
-                `${index + 1}: ${order.timestamp.toLocaleTimeString()} - $${order.sale.total.toFixed(2)}`
-            ).join('\n');
-            
-            const selection = prompt('Select order to recall:\n' + orderList);
-            const orderIndex = parseInt(selection) - 1;
-            
-            if (orderIndex >= 0 && orderIndex < heldOrders.length) {
-                currentSale = heldOrders[orderIndex].sale;
-                heldOrders.splice(orderIndex, 1);
-                updateSaleDisplay();
-                updateStatusBar('Order recalled');
-            }
-        }
-
-        function voidLastItem() {
-            if (currentSale.items.length === 0) {
-                alert('No items to void');
-                return;
-            }
-            
-            const lastItem = currentSale.items.pop();
-            updateSaleDisplay();
-            updateStatusBar('Voided: ' + lastItem.name);
-        }
-
-        function applyDiscount() {
-            const discountAmount = prompt('Enter discount amount ($):');
-            if (discountAmount && !isNaN(discountAmount)) {
-                currentSale.discount = parseFloat(discountAmount);
-                calculateTotals();
-                updateStatusBar('Discount applied: $' + discountAmount);
-            }
-        }
-
-        function refundItem() {
-            updateStatusBar('Refund function - Not implemented yet');
-        }
-
-        function reprintReceipt() {
-            if (lastTransaction) {
-                printReceipt(lastTransaction);
-                updateStatusBar('Receipt reprinted');
-            } else {
-                alert('No previous transaction to reprint');
-            }
-        }
-
-        function changeOrder() {
-            updateStatusBar('Change order function - Not implemented yet');
-        }
-
-        function openAdminPanel() {
-            if (!hasPermission('all')) {
-                alert('Access denied: Admin privileges required');
-                return;
-            }
-            updateStatusBar('Admin panel - Not implemented yet');
-        }
-
-        function closeModal() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.style.display = 'none';
-            });
-        }
-
-        function updateStatusBar(message) {
-            document.getElementById('systemStatus').textContent = message;
-            setTimeout(() => {
-                document.getElementById('systemStatus').textContent = 'READY';
-            }, 3000);
-        }
-
-        // Click outside modal to close
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                closeModal();
-            }
-        }
-    </script>
+        <script src="app.js"></script>
 </body>
 </html>
